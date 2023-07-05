@@ -290,8 +290,8 @@
 
 <body class="background">
 	<!-- Postgress Test code -->
-	<p>data?.role</p>
-	<p>data?.message</p>
+	<p>{data?.role}</p>
+	<p>{data?.message}</p>
 	<div class="flex w-[1500px] justify-center">
 		<div class="flex flex-col">
 			<!-- Hint panel -->
