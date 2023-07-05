@@ -16,7 +16,7 @@ async function seed() {
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
       role VARCHAR(255) NOT NULL,
-      message VARCHAR(255) UNIQUE NOT NULL,
+      message VARCHAR(255) NOT NULL,
       "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
     `;
@@ -52,7 +52,7 @@ async function seed() {
 export async function _load() {
 	const db = createPool();
 	const startTime = Date.now();
-	
+
 
 	try {
 		const { rows: users } = await db.query('SELECT * FROM users');
