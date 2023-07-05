@@ -6,6 +6,10 @@
 	import type { ChatCompletionRequestMessage } from 'openai'
 	import { SSE } from 'sse.js'
 
+	// Postgres Code
+	export let data
+	// Postgres Code ends
+
 	// Part 1 Chatbot functionality code
 	let query: string = ''
 	let answer: string = ''
@@ -285,6 +289,9 @@
 </script>
 
 <body class="background">
+	<!-- Postgress Test code -->
+	<p>data?.role</p>
+	<p>data?.message</p>
 	<div class="flex w-[1500px] justify-center">
 		<div class="flex flex-col">
 			<!-- Hint panel -->

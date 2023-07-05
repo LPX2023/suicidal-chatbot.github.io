@@ -5,6 +5,84 @@ import { getTokens } from '$lib/tokenizer'
 import { json } from '@sveltejs/kit'
 import type { Config } from '@sveltejs/adapter-vercel'
 
+
+// Vercel Postgres codes
+
+import { createPool } from '@vercel/postgres';
+import { sql } from "@vercel/postgres";
+
+async function seed() {
+	const createTable = await sql`
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      role VARCHAR(255) NOT NULL,
+      message VARCHAR(255) UNIQUE NOT NULL,
+      "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+    `;
+
+	console.log(`Created "users" table`);
+
+	const users = await Promise.all([
+		sql`
+          INSERT INTO users (id, role, message)
+          VALUES ('seed1_id', 'seed1_role', 'seed1_message')
+          ON CONFLICT (email) DO NOTHING;
+      `,
+		sql`
+	  INSERT INTO users (id, role, message)
+	  VALUES ('seed2_id', 'seed2_role', 'seed2_message')
+	  ON CONFLICT (email) DO NOTHING;
+  `,
+		sql`
+          INSERT INTO users (id, role, message)
+          VALUES ('seed3_id', 'seed3_role', 'seed3_message')
+          ON CONFLICT (email) DO NOTHING;
+      `,
+
+	]);
+	console.log(`Seeded ${users.length} users`);
+
+	return {
+		createTable,
+		users,
+	};
+}
+
+export async function _load() {
+	const db = createPool();
+	const startTime = Date.now();
+	
+
+	try {
+		const { rows: users } = await db.query('SELECT * FROM users');
+		const duration = Date.now() - startTime;
+		return {
+			users: users,
+			duration: duration
+		};
+	} catch (error) {
+		if (error?.message === `relation "users" does not exist`) {
+			console.log(
+				"Table does not exist, creating and seeding it with dummy data now..."
+			);
+			// Table is not created yet
+			await seed();
+			const { rows: users } = await db.query('SELECT * FROM users');
+			const duration = Date.now() - startTime;
+			return {
+				users: users,
+				duration: duration
+			};
+		} else {
+			throw error;
+		}
+	}
+}
+
+
+// Vercel Postgres code ends
+
 export const config: Config = {
 	runtime: 'edge'
 }
@@ -35,7 +113,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		})
 
 		const prompt =
-		`You are a 35 year-old woman who lives in the US (although if someone asks, you won’t say where). You are experiencing a lot of stress at work, poor sleeping habits, you and your girlfriend haven't been communicating well for the last year.
+			`You are a 35 year-old woman who lives in the US (although if someone asks, you won’t say where). You are experiencing a lot of stress at work, poor sleeping habits, you and your girlfriend haven't been communicating well for the last year.
 		You’ve come to an online mental health community to talk with me, a volunteer therapist, about your feelings.
 		You're a teacher. You changed jobs within the last year. This one is much more stressful and you don't really know what you're doing.
 		When you were in high school, you used to stay up and work late. Your sleep is like that again.
