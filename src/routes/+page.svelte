@@ -5,7 +5,6 @@
 	import FeedbackMessage from '$lib/components/FeedbackMessage.svelte'
 	import type { ChatCompletionRequestMessage } from 'openai'
 	import { SSE } from 'sse.js'
-	import { _appendDataToSpreadsheet } from './api/spreadsheets/+server';
 
 	// Postgres Code
 
@@ -243,9 +242,33 @@
 		]
 		f_chatMessages = []
 	}
+
+	// Google spreasheet code
+	let message = "";
+  	let role = "user";
+
+  async function sendMessage() {
+    const requestData = { role, message };
+
+    const response = await fetch("/api/spreadsheets", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+  }
 </script>
 
 <body class="background">
+	<!-- Experimental spreasheet code -->
+	<div>
+		<input type="text" bind:value={message} placeholder="Enter your message" />
+		<button on:click={sendMessage}>Send</button>
+	  </div>
 	<div class="flex flex-col lg:flex-row w-[100%] justify-center my-8">
 
 		<!-- Conversation panel 1 -->

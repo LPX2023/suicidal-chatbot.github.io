@@ -1,4 +1,3 @@
-// Vercel Postgres codes
 import { google } from 'googleapis'
 export async function _appendDataToSpreadsheet(role: any, message: any) {
 	const auth = new google.auth.JWT({
@@ -19,5 +18,35 @@ export async function _appendDataToSpreadsheet(role: any, message: any) {
 	})
 }
 
+import { OPENAI_KEY } from '$env/static/private'
+import type { CreateChatCompletionRequest, ChatCompletionRequestMessage } from 'openai'
+import type { RequestHandler } from './$types'
+import { getTokens } from '$lib/tokenizer'
+import { json } from '@sveltejs/kit'
+import type { Config } from '@sveltejs/adapter-vercel'
 
-// Vercel Postgres code ends
+export const config: Config = {
+	runtime: 'edge'
+}
+
+export const POST: RequestHandler = async ({ request }) => {
+	try {
+	  if (!request.body) {
+		return json({ error: 'Request body is missing' }, { status: 400 });
+	  }
+  
+	  const requestBody = await request.text();
+	  const { role, message } = JSON.parse(requestBody);
+  
+	  if (!role || !message) {
+		return json({ error: 'Role and message are required fields' }, { status: 400 });
+	  }
+  
+	  await _appendDataToSpreadsheet(role, message);
+  
+	  return json({ success: true });
+	} catch (error) {
+	  console.error('Error appending data to Google Spreadsheet:', error);
+	  return json({ error: 'There was an error processing your request' }, { status: 500 });
+	}
+  }

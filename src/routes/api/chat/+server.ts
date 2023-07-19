@@ -111,7 +111,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		const timestring = Date().toLocaleString()
 
 		_appendDataToSpreadsheet(timestring, reqMessages[reqMessages.length-1].content)
-		console.log(chatResponse)
+
 
 		return response
 
