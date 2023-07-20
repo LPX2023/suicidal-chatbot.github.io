@@ -245,9 +245,11 @@
 
 	// Google spreasheet code
 	let message = "";
-  	let role = "user";
+  	let role = "";
 
   async function sendMessage() {
+	role = Date().toLocaleString()
+	message = construct_chat_history(chatMessages)
     const requestData = { role, message };
 
     const response = await fetch("/api/spreadsheets", {
@@ -268,7 +270,7 @@
 	<div>
 		<input type="text" bind:value={message} placeholder="Enter your message" />
 		<button on:click={sendMessage}>Send</button>
-	  </div>
+	</div>
 	<div class="flex flex-col lg:flex-row w-[100%] justify-center my-8">
 
 		<!-- Conversation panel 1 -->
@@ -306,17 +308,21 @@
 				<button type="submit" class="hidden btn bg-green-500"> Send </button>
 			</form>
 			<div class="flex flex-row gap-4 justify-center">
-				<button id="send_message" class="btn bg-red-500 w-[50%]" on:click={remove_previous}>
+				<button id="send_message" class="btn bg-red-500 w-[30%]" on:click={remove_previous}>
 					Remove previous
 				</button>
 				<button
 					id="get_feedback"
-					class="btn bg-blue-500 w-[50%]"
+					class="btn bg-blue-500 w-[30%]"
 					on:click|preventDefault={() => f_handleSubmit()}
 				>
 					Get feedback
 				</button>
+				<button id="send_message" class="btn bg-green-500 w-[30%]" on:click={sendMessage}>
+					Save chat history
+				</button>
 			</div>
+			
 		</div>
 		<!-- Feedback panel -->
 		<div class="flex flex-col px-8 max-w-xl lg:w-[30%] max-w-xl">
