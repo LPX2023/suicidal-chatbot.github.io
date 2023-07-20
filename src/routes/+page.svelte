@@ -6,10 +6,6 @@
 	import type { ChatCompletionRequestMessage } from 'openai'
 	import { SSE } from 'sse.js'
 
-	// Postgres Code
-
-	// Postgres Code ends
-
 	// Part 1 Chatbot functionality code
 	let query: string = ''
 	let answer: string = ''
