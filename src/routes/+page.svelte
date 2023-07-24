@@ -6,9 +6,6 @@
 	import type { ChatCompletionRequestMessage } from 'openai'
 	import { SSE } from 'sse.js'
 
-	// Postgres Code
-
-	// Postgres Code ends
 
 	// Part 1 Chatbot functionality code
 	let query: string = ''
@@ -267,19 +264,15 @@
 
 <body class="background">
 	<!-- Experimental spreasheet code -->
-	<div>
-		<input type="text" bind:value={message} placeholder="Enter your message" />
-		<button on:click={sendMessage}>Send</button>
-	</div>
 	<div class="flex flex-col lg:flex-row w-[100%] justify-center my-8">
 
 		<!-- Conversation panel 1 -->
 		<div
 			class="{chat1_active
 				? 'hidden'
-				: ''} flex flex-col pb-8 lg:w-[50%] h-screen px-8 bg-white rounded-md mb-8 mx-8 lg:mx-0"
+				: ''} flex flex-col pb-8 lg:w-[50%] h-[calc(100vh-64px)] px-8 bg-white rounded-md mb-8 mx-8 lg:mx-0"
 		>
-			<div class="h-screen w-full rounded-md p-4 overflow-y-auto flex flex-col gap-4">
+			<div class="h-[100%] w-full rounded-md p-4 overflow-y-auto flex flex-col gap-4">
 				<div class="flex flex-col gap-2">
 					{#each chatMessages as message, i}
 						<ChatMessage type={message.role} message={message.content} />
@@ -307,20 +300,21 @@
 				/>
 				<button type="submit" class="hidden btn bg-green-500"> Send </button>
 			</form>
-			<div class="flex flex-row gap-4 justify-center">
-				<button id="send_message" class="btn bg-red-500 w-[30%]" on:click={remove_previous}>
+			<div class="flex flex-row justify-between">
+				<button id="send_message" class="btn bg-red-500 w-[32%]" on:click={remove_previous}>
 					Remove previous
+				</button>
+				<button id="send_message" class="btn bg-green-500 w-[32%]" on:click={sendMessage}>
+					Upload chat history
 				</button>
 				<button
 					id="get_feedback"
-					class="btn bg-blue-500 w-[30%]"
+					class="btn bg-blue-500 w-[32%]"
 					on:click|preventDefault={() => f_handleSubmit()}
 				>
 					Get feedback
 				</button>
-				<button id="send_message" class="btn bg-green-500 w-[30%]" on:click={sendMessage}>
-					Save chat history
-				</button>
+		
 			</div>
 			
 		</div>
