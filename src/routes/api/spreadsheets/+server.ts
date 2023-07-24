@@ -1,4 +1,28 @@
 import { google } from 'googleapis'
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import * as stream from 'stream';
+import * as fs from 'fs';
+import * as https from 'https';
+import * as url from 'url';
+import * as util from 'util';
+import * as http2 from 'http2';
+import * as zlib from 'zlib';
+import * as process from 'process';
+import * as querystring from 'querystring';
+import * as net from 'net';
+import * as tls from 'tls';
+import * as assert from 'assert';
+import * as events from 'events';
+import * as os from 'os';
+import * as child_process from 'child_process';
+import * as path from 'path';
+import * as buffer from 'buffer';
+import * as crypto from 'crypto';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 export async function _appendDataToSpreadsheet(role: any, message: any) {
 	const auth = new google.auth.JWT({
 		email: 'pl444-881@chatbot-database-391717.iam.gserviceaccount.com',
