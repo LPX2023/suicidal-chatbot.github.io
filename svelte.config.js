@@ -21,7 +21,7 @@ const config = {
     build: {
       target: 'node',
       rollupOptions: {
-        external: ['googleapis-common'],
+        platform: 'node',
       },
     },
   },
