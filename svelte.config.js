@@ -5,7 +5,6 @@ import { vitePreprocess } from '@sveltejs/kit/vite';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: [
-    // Set the target option to 'esnext'
     vitePreprocess({ target: 'esnext' }),
     preprocess({ postcss: true })
   ],
@@ -16,9 +15,7 @@ const config = {
     })
   },
 
-  // Add the 'rollupOptions' here, not inside 'config.kit'
   rollupOptions: {
-    // Add Node.js built-in modules to 'external'
     external: ['stream', 'fs', 'https', 'url', 'util', 'http2', 'zlib', 'process', 'querystring', 'net', 'tls', 'assert', 'events', 'os', 'child_process', 'path', 'buffer', 'crypto'],
   }
 };
