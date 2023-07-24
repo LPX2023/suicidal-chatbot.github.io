@@ -15,13 +15,17 @@ const config = {
   },
 
   vite: {
+    target: 'node',
+
     ssr: {
-      target: 'node',
+      noExternal: ['https'],
     },
     build: {
       target: 'node',
       rollupOptions: {
-        platform: 'node',
+        output: {
+          platform: 'node',
+        },
       },
     },
   },
