@@ -15,18 +15,11 @@ const config = {
   },
 
   vite: {
-    target: 'node',
-
     ssr: {
-      noExternal: ['https'],
+      external: ['https'],
     },
     build: {
-      target: 'node',
-      rollupOptions: {
-        output: {
-          platform: 'node',
-        },
-      },
+      polyfillNode: true,
     },
   },
 };
