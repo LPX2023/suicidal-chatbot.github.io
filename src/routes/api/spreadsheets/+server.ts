@@ -2,9 +2,6 @@ import { google } from 'googleapis'
 // import { fileURLToPath } from 'url';
 // import { dirname } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 export async function _appendDataToSpreadsheet(role: any, message: any) {
 	const auth = new google.auth.JWT({
 		email: 'pl444-881@chatbot-database-391717.iam.gserviceaccount.com',
