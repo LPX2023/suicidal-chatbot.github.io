@@ -1,6 +1,10 @@
-import { google } from 'googleapis'
+// import { google } from 'googleapis'
 // import { fileURLToPath } from 'url';
 // import { dirname } from 'path';
+
+import type { RequestHandler } from './$types'
+import { json } from '@sveltejs/kit'
+import type { Config } from '@sveltejs/adapter-vercel'
 
 export async function _appendDataToSpreadsheet(role: any, message: any) {
 	const auth = new google.auth.JWT({
@@ -20,10 +24,6 @@ export async function _appendDataToSpreadsheet(role: any, message: any) {
 		}
 	})
 }
-
-import type { RequestHandler } from './$types'
-import { json } from '@sveltejs/kit'
-import type { Config } from '@sveltejs/adapter-vercel'
 
 export const config: Config = {
 	runtime: 'edge'
