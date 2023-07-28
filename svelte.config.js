@@ -46,12 +46,11 @@
 
 import preprocess from "svelte-preprocess";
 import adapter from '@sveltejs/adapter-vercel';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { sveltekit } from '@sveltejs/kit/vite';
 
-/** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: [
-    vitePreprocess({ target: 'esnext' }),
+    sveltekit(),
     preprocess({ postcss: true })
   ],
 
@@ -59,7 +58,10 @@ const config = {
     adapter: adapter({
       runtime: 'nodejs18.x'
     }),
-    vite: {
+  },
+
+  rollup: {
+    plugins: {
       resolve: {
         alias: {
           fs: false,
@@ -79,14 +81,10 @@ const config = {
           child_process: false,
           buffer: false,
           crypto: false,
-        }
-      }
-    }
+        },
+      },
+    },
   },
-
-  rollupOptions: {
-    external: ['stream', 'fs', 'https', 'url', 'util', 'http2', 'zlib', 'process', 'querystring', 'net', 'tls', 'assert', 'events', 'os', 'child_process', 'path', 'buffer', 'crypto'],
-  }
 };
 
 export default config;
