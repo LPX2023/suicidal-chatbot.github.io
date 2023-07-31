@@ -45,6 +45,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/vite-plugin-svelte": "^2.4.3",
 		"@types/node": "^20.4.1",
 		"@vercel/postgres": "^0.4.0",
 		"googleapis": "^121.0.0",
