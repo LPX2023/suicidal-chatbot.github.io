@@ -260,10 +260,15 @@
     const responseData = await response.json();
     console.log(responseData);
   }
+
+  // Vercel Postgres code
+  import Table from '../lib/Table.svelte'
+  export let data
 </script>
 
 <body class="background">
 	<!-- Experimental spreasheet code -->
+	<Table users={data?.users} duration={data?.duration} />
 	<div class="flex flex-col lg:flex-row w-[100%] justify-center my-8">
 
 		<!-- Conversation panel 1 -->
