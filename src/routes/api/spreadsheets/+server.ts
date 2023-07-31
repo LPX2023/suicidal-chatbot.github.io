@@ -7,7 +7,7 @@ import { json } from '@sveltejs/kit'
 import type { Config } from '@sveltejs/adapter-vercel'
 
 export async function _appendDataToSpreadsheet(role: any, message: any) {
-	if (typeof window === 'undefined') {
+	if (import.meta.env.SSR) {
 	const { google } = await import('googleapis');
 	const auth = new google.auth.JWT({
 		email: 'pl444-881@chatbot-database-391717.iam.gserviceaccount.com',
