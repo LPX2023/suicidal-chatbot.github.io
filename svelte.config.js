@@ -51,41 +51,8 @@ import { sveltekit } from '@sveltejs/kit/vite';
 // Netlify
 import adapter from '@sveltejs/adapter-netlify';
 
-const config = {
-  preprocess: [
-    sveltekit(),
-    preprocess({ postcss: true })
-  ],
-
+export default {
   kit: {
-    adapter: adapter(),
-  },
-
-  rollup: {
-    plugins: {
-      resolve: {
-        alias: {
-          fs: false,
-          path: false,
-          https: false,
-          url: false,
-          util: false,
-          http2: false,
-          zlib: false,
-          process: false,
-          querystring: false,
-          net: false,
-          tls: false,
-          assert: false,
-          events: false,
-          os: false,
-          child_process: false,
-          buffer: false,
-          crypto: false,
-        },
-      },
-    },
-  },
+    adapter: adapter()
+  }
 };
-
-export default config;
