@@ -48,6 +48,9 @@ import preprocess from "svelte-preprocess";
 import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 
+// Netlify
+import adapter from '@sveltejs/adapter-netlify';
+
 const config = {
   preprocess: [
     sveltekit(),
@@ -55,9 +58,7 @@ const config = {
   ],
 
   kit: {
-    adapter: adapter({
-      runtime: 'nodejs18.x'
-    }),
+    adapter: adapter(),
   },
 
   rollup: {
