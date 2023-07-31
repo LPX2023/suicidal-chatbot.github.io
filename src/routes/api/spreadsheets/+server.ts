@@ -3,8 +3,8 @@
 // import { dirname } from 'path';
 
 import { google } from 'googleapis'
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
+// import { sveltekit } from '@sveltejs/kit/vite';
+// import { defineConfig } from 'vite';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import type { RequestHandler } from './$types'
 import { json } from '@sveltejs/kit'
