@@ -45,7 +45,6 @@
 // export default config;
 
 import preprocess from "svelte-preprocess";
-import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 
 // Netlify
