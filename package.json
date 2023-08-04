@@ -68,6 +68,11 @@
 	"browser": {
 		"fs": false,
 		"path": false,
-		"os": false
+		"os": false,
+		"child_process": false,
+		"crypto": false,
+		"https": false,
+		"http2": false,
+		"./zlib_bindings": false
 	  }
 }
