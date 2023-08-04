@@ -64,5 +64,10 @@
 		"url": "^0.11.1",
 		"util": "^0.12.5",
 		"zlib": "^1.0.5"
-	}
+	},
+	"browser": {
+		"fs": false,
+		"path": false,
+		"os": false
+	  }
 }
