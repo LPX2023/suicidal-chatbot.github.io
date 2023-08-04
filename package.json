@@ -73,6 +73,6 @@
 		"crypto": false,
 		"https": false,
 		"http2": false,
-		"./zlib_bindings": false
+		"zlib": false
 	  }
 }
