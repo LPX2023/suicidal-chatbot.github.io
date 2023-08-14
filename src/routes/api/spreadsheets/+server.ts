@@ -1,7 +1,4 @@
 import { google } from 'googleapis'
-// import { fileURLToPath } from 'url';
-// import { dirname } from 'path';
-
 import type { RequestHandler } from './$types'
 import { json } from '@sveltejs/kit'
 import type { Config } from '@sveltejs/adapter-vercel'
