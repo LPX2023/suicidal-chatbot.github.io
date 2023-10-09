@@ -95,7 +95,31 @@
 	}
 
 	// This function constructs chat history from chatMessages object, which is sent to the feedback chatbot
-	// It is also used for uploading chat history to the spreadsheet
+	function f_construct_chat_history(chatMessages: ChatCompletionRequestMessage[]) {
+		let history = ''
+		// This for loop goes through each message in a chatMessages object
+		for (let i in chatMessages) {
+			let limit = 0;
+			if (limit <5) {
+			let role = ''
+			// [Edit] Put in role information
+			if (chatMessages[i].role == 'user') {
+				role = 'Me'
+			} else {
+				role = 'Friend'
+			}
+			const content = chatMessages[i].content
+			history += `${role}: ${content}\n`
+			limit += 1
+		}
+		}
+		return history
+	}
+
+
+
+
+	// A variation of it is also used for uploading chat history to the spreadsheet
 	function construct_chat_history(chatMessages: ChatCompletionRequestMessage[]) {
 		let history = ''
 		// This for loop goes through each message in a chatMessages object
