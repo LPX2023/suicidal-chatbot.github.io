@@ -99,8 +99,6 @@
 		let history = ''
 		let limit = chatMessages.length
 		let count = 0
-		console.log(limit)
-		console.log(chatMessages)
 		// This for loop goes through each message in a chatMessages object
 		for (let i in chatMessages) {
 			if (limit > count && count >= limit-10) {
@@ -113,7 +111,6 @@
 			}
 			const content = chatMessages[i].content
 			history += `${role}: ${content}\n`
-			console.log(count)
 			}
 			count += 1
 		}
@@ -409,9 +406,9 @@
 						<div class="flex flex-col gap-2">
 							{#each f_chatMessages as message}
 								<!-- The following code show user message for testing, comment out in demo -->
-								{#if message.role === 'user'}
+								<!-- {#if message.role === 'user'}
 						<FeedbackMessage type={message.role} message={message.content} />
-					{/if}
+					{/if} -->
 								<!-- Above is user message for testing -->
 								{#if message.role === 'assistant'}
 									<FeedbackMessage type={message.role} message={message.content} />
