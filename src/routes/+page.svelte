@@ -97,22 +97,28 @@
 	// This function constructs chat history from chatMessages object, which is sent to the feedback chatbot
 	function f_construct_chat_history(chatMessages: ChatCompletionRequestMessage[]) {
 		let history = ''
+		let limit = chatMessages.length
+		let count = 0
+		console.log(limit)
+		console.log(chatMessages)
 		// This for loop goes through each message in a chatMessages object
 		for (let i in chatMessages) {
-			let limit = 0;
-			if (limit <5) {
-			let role = ''
+			if (limit > count && count >= limit-10) {
+ 			let role = ''
 			// [Edit] Put in role information
 			if (chatMessages[i].role == 'user') {
-				role = 'Me'
+				role = 'ME'
 			} else {
-				role = 'Friend'
+				role = 'FRIEND'
 			}
 			const content = chatMessages[i].content
 			history += `${role}: ${content}\n`
-			limit += 1
+			console.log(count)
+			}
+			count += 1
 		}
-		}
+		count = 0
+	
 		return history
 	}
 
@@ -155,7 +161,7 @@
 		// [Edit] This code builds the text message sent to the Feedback chatbot
 		// It uses the current chat message and the unsent message in the textfield
 		for (let i = 0; i < 5; i++) {
-			query = `The following is a ongoing conversation between me and my friend: ${construct_chat_history(
+			query = `The following is a ongoing conversation between me and my friend: ${f_construct_chat_history(
 				chatMessages
 			)}
 		Here is my message that I'm planning on sending next: "${next_message}".
@@ -403,9 +409,9 @@
 						<div class="flex flex-col gap-2">
 							{#each f_chatMessages as message}
 								<!-- The following code show user message for testing, comment out in demo -->
-								<!-- {#if message.role === 'user'}
+								{#if message.role === 'user'}
 						<FeedbackMessage type={message.role} message={message.content} />
-					{/if} -->
+					{/if}
 								<!-- Above is user message for testing -->
 								{#if message.role === 'assistant'}
 									<FeedbackMessage type={message.role} message={message.content} />
