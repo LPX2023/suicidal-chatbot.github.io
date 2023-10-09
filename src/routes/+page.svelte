@@ -69,7 +69,9 @@
 	// Part 2 Feedback functionality code
 	let f_answer: string = ''
 	let f_loading: boolean = false
-	let f_chatMessages: ChatCompletionRequestMessage[] = []
+	let f_chatMessages: string = ''
+
+	// Enabling auto-scorlling to bottom when new feedback message appears
 	let scrollToDiv_feedback: HTMLDivElement
 
 	function scrollToBottom_feedback() {
@@ -117,7 +119,7 @@
 		If you think my message meets the above standard, start your reply with “yes”.
 		If not, start your reply with “No”, paraphrase the criteria, then explain why my message doesn't meet the standard, and give me high-level suggestions that I can do better in my message. Be friendly and succinct (at most four sentences). Only give abstract instructions, such as “you can apply more active listening skills”, “you can encourage your friend”, etc.
 		`
-			f_chatMessages = [...f_chatMessages, { role: 'user', content: query }]
+			f_chatMessages = query
 
 			const eventSource = new SSE('/api/feedback', {
 				headers: {
@@ -135,11 +137,11 @@
 				try {
 					f_loading = false
 					if (e.data === '[DONE]') {
-						f_chatMessages = [...f_chatMessages, { role: 'assistant', content: f_answer }]
+						f_chatMessages = f_answer
 						f_answer = ''
 						return
 					}
-
+					
 					const completionResponse = JSON.parse(e.data)
 					const [{ delta }] = completionResponse.choices
 
@@ -237,7 +239,7 @@
 				content: 'Hi. I’ve had a tough time recently and I wanted to talk to someone about it.'
 			}
 		]
-		f_chatMessages = []
+		f_chatMessages = ''
 	}
 
 	// Google spreasheet code
@@ -334,16 +336,12 @@
 					>
 					<div class="h-[584px] w-[100%] rounded-md overflow-y-auto flex flex-col gap-4 pt-4">
 						<div class="flex flex-col gap-2">
-							{#each f_chatMessages as message}
 								<!-- The following code show user message for testing, comment out in demo -->
 								<!-- {#if message.role === 'user'}
 						<FeedbackMessage type={message.role} message={message.content} />
 					{/if} -->
 								<!-- Above is user message for testing -->
-								{#if message.role === 'assistant'}
-									<FeedbackMessage type={message.role} message={message.content} />
-								{/if}
-							{/each}
+									<FeedbackMessage type={"assistant"} message={message} />
 							{#if f_answer}
 								<FeedbackMessage type="assistant" message={f_answer} />
 							{/if}
