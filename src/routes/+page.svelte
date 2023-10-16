@@ -120,8 +120,6 @@
 	}
 
 
-
-
 	// A variation of it is also used for uploading chat history to the spreadsheet
 	function construct_chat_history(chatMessages: ChatCompletionRequestMessage[]) {
 		let history = ''
@@ -158,15 +156,18 @@
 		// [Edit] This code builds the text message sent to the Feedback chatbot
 		// It uses the current chat message and the unsent message in the textfield
 		for (let i = 0; i < 5; i++) {
-			query = `The following is a ongoing conversation between me and my friend: ${f_construct_chat_history(
-				chatMessages
-			)}
-		Here is my message that I'm planning on sending next: "${next_message}".
-		Evaluate this message in the context of the above conversation, based on the following criterion:
-		${criterias[i]}
-		If you think my message meets the above standard, start your reply with “yes”.
-		If not, start your reply with “No”, paraphrase the criteria, then explain why my message doesn't meet the standard, and give me high-level suggestions that I can do better in my message. Be friendly and succinct (at most four sentences). Only give abstract instructions, such as “you can apply more active listening skills”, “you can encourage your friend”, etc.
-		`
+			query = 
+`The following is a ongoing conversation between me and my friend:
+${f_construct_chat_history(chatMessages)}
+
+Here is my message that I'm planning on sending next: "${next_message}".
+
+Evaluate this message in the context of the above conversation, based on the following criterion: ${criterias[i]}
+
+If you think my message meets the above standard, start your reply with “yes”.
+
+If not, start your reply with “No”, paraphrase the criteria, then explain why my message doesn't meet the standard, and give me high-level suggestions that I can do better in my message. Be friendly and succinct (at most four sentences). Only give abstract instructions, such as “you can apply more active listening skills”, “you can encourage your friend”, etc.`
+			console.log(query)
 			f_chatMessages = [...f_chatMessages, { role: 'user', content: query }]
 
 			// Creating another new EventSource object.
