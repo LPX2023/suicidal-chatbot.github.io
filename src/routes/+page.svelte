@@ -167,7 +167,7 @@ Evaluate this message in the context of the above conversation, based on the fol
 If you think my message meets the above standard, start your reply with “yes”.
 
 If not, start your reply with “No”, paraphrase the criteria, then explain why my message doesn't meet the standard, and give me high-level suggestions that I can do better in my message. Be friendly and succinct (at most four sentences). Only give abstract instructions, such as “you can apply more active listening skills”, “you can encourage your friend”, etc.`
-			console.log(query)
+
 			f_chatMessages = [...f_chatMessages, { role: 'user', content: query }]
 
 			// Creating another new EventSource object.
