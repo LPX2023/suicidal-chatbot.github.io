@@ -147,11 +147,16 @@
 		`5. Encourage them to connect with resources: Once the person has said they're suicidal or want to kill themself, you should ask that they get help from a mental health professional or support group. Example: "Would you be open to reaching out to someone who can help you more, like a suicide hotline?"`
 	]
 
+	let aggregate_feedback = ``
+
 	// Feedback chatbot new feedback request handling
 	// The server side code of this functionality is located in src/routes/api/feedback/+server.ts
 	const f_handleSubmit = async () => {
-		f_loading = true
 		let next_message = query
+		aggregate_feedback = `The message you were going to send is ${next_message}.\n Here is some feedback on your message, based on the following best practices: \n\n`
+		f_loading = true
+		
+		
 
 		// [Edit] This code builds the text message sent to the Feedback chatbot
 		// It uses the current chat message and the unsent message in the textfield
@@ -166,9 +171,12 @@ Evaluate this message in the context of the above conversation, based on the fol
 
 If you think my message meets the above standard, start your reply with “yes”.
 
-If not, start your reply with “No”, paraphrase the criteria, then explain why my message doesn't meet the standard, and give me high-level suggestions that I can do better in my message. Be friendly and succinct (at most four sentences). Only give abstract instructions, such as “you can apply more active listening skills”, “you can encourage your friend”, etc.`
+If not, start your reply with “No”, then explain why my message doesn't meet the standard, and give me high-level suggestions that I can do better in my message. Be friendly and succinct (at most four sentences). Only give abstract instructions, such as “you can apply more active listening skills”, “you can encourage your friend”, etc.`
 
-			f_chatMessages = [...f_chatMessages, { role: 'user', content: query }]
+			let f_chatMessages_history = f_chatMessages
+			f_chatMessages = [{ role: 'user', content: query }]
+			// console.log('Before request')
+			// console.log(f_chatMessages)
 
 			// Creating another new EventSource object.
 			const eventSource = new SSE('/api/feedback', {
@@ -188,7 +196,9 @@ If not, start your reply with “No”, paraphrase the criteria, then explain wh
 				try {
 					f_loading = false
 					if (e.data === '[DONE]') {
-						f_chatMessages = [...f_chatMessages, { role: 'assistant', content: f_answer }]
+						f_chatMessages = [...f_chatMessages_history, { role: 'assistant', content: f_answer }]
+						aggregate_feedback += criterias[i] + "\n\n"
+        				aggregate_feedback += f_answer + "\n\n\n"
 						f_answer = ''
 						return
 					}
@@ -404,23 +414,8 @@ If not, start your reply with “No”, paraphrase the criteria, then explain wh
 						><h1 class="text-xl font-bold w-full">Feedback on your next message</h1></button
 					>
 					<div class="h-[584px] w-[100%] rounded-md overflow-y-auto flex flex-col gap-4 pt-4">
-						<div class="flex flex-col gap-2">
-							{#each f_chatMessages as message}
-								<!-- The following code show user message for testing, comment out in demo -->
-								<!-- {#if message.role === 'user'}
-						<FeedbackMessage type={message.role} message={message.content} />
-					{/if} -->
-								<!-- Above is user message for testing -->
-								{#if message.role === 'assistant'}
-									<FeedbackMessage type={message.role} message={message.content} />
-								{/if}
-							{/each}
-							{#if f_answer}
-								<FeedbackMessage type="assistant" message={f_answer} />
-							{/if}
-							{#if f_loading}
-								<FeedbackMessage type="assistant" message="Loading.." />
-							{/if}
+						<div class="flex flex-col gap-2 feedback_text">
+							{aggregate_feedback}
 						</div>
 						<div class="" bind:this={scrollToDiv_feedback} />
 					</div>
@@ -545,6 +540,10 @@ If not, start your reply with “No”, paraphrase the criteria, then explain wh
 
 	input:focus::placeholder {
 		color: transparent;
+	}
+
+	.feedback_text {
+		white-space: pre-wrap;
 	}
 </style>
 <!-- Section 3 ends -->
