@@ -45,7 +45,8 @@ export const POST: RequestHandler = async ({ request }) => {
 			messages,
 			temperature: 0,
 			top_p :1,
-			stream: true
+			stream: true,
+			max_tokens: 3000
 		}
 
 		const r_chatResponse = await fetch('https://api.openai.com/v1/chat/completions', {
