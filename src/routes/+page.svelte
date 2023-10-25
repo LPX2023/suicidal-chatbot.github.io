@@ -316,6 +316,7 @@ If not, start your reply with “No”, then explain why my message doesn't meet
 	// This records the time and date of the chat hisotry uploading
 	role = Date().toLocaleString()
 	message = construct_chat_history(chatMessages)
+	// Editing the following variable does not impact the prompt. Please go to +server.ts to edit the prompt.
 	message = `System: You are a 35 year-old woman who lives in the US (although if someone asks, you won’t say where).
 		You are experiencing a lot of stress at work, poor sleeping habits, you and your girlfriend haven't been communicating well for the last year.
 		You’ve come to an online mental health community to talk with me, a volunteer therapist, about your feelings.
@@ -382,150 +383,20 @@ If not, start your reply with “No”, then explain why my message doesn't meet
 				<button type="submit" class="hidden btn bg-green-500"> Send </button>
 			</form>
 			<div class="flex flex-row justify-between">
-				<button id="send_message" class="btn bg-red-500 w-[32%]" on:click={remove_previous}>
+				<button id="send_message" class="btn bg-red-500 w-[45%]" on:click={remove_previous}>
 					Remove previous
 				</button>
-				<button id="send_message" class="btn bg-green-500 w-[32%]" on:click={sendMessage}>
+				<button id="send_message" class="btn bg-green-500 w-[45%]" on:click={sendMessage}>
 					Upload chat history
-				</button>
-				<button
-					id="get_feedback"
-					class="btn bg-blue-500 w-[32%]"
-					on:click|preventDefault={() => f_handleSubmit()}
-				>
-					Get feedback
 				</button>
 		
 			</div>
 			
 		</div>
-		<!-- Feedback panel -->
-		<div class="flex flex-col px-8 max-w-xl lg:w-[30%] max-w-xl">
-			<div class="flex flex-col pt-4 pb-4 px-4 bg-white rounded-md mb-8 gap-2">
-				<div class={feedback_active ? 'hidden' : ''}>
-					<button class="text-left py-4 px-4" on:click={toggleFeedback}
-						><h1 class="text-xl font-bold w-full">Feedback</h1></button
-					>
-				</div>
-				<div class={feedback_active ? '' : 'hidden'} style="width: {feedback_panel_width}">
-					<button
-						class="py-4 text-left px-4 ${feedback_active ? 'hidden' : ''}"
-						on:click={toggleFeedback}
-						><h1 class="text-xl font-bold w-full">Feedback on your next message</h1></button
-					>
-					<div class="h-[584px] w-[100%] rounded-md overflow-y-auto flex flex-col gap-4 pt-4">
-						<div class="flex flex-col gap-2 feedback_text">
-							{aggregate_feedback}
-						</div>
-						<div class="" bind:this={scrollToDiv_feedback} />
-					</div>
-					<form
-						autocomplete="off"
-						class="flex w-full rounded-md gap-4 py-4"
-						on:submit|preventDefault={() => f_handleSubmit()}
-					>
-						<textarea
-							placeholder="Press enter to get feedback"
-							id="feedback_input"
-							class="hidden input input-bordered w-full"
-							bind:value={query}
-						/>
-						<button type="submit" class="hidden btn bg-blue-500"> Get feedback </button>
-					</form>
-				</div>
-			</div>
-		</div>
-				<!-- Left column -->
-				<div class="flex flex-col lg:w-[30%] lg:order-first max-w-xl">
-					<!-- Hint panel -->
-					<div class="flex flex-col bg-white rounded-md mb-8 mx-8">
-						<button
-							class="text-left ${hint_active ? 'hidden' : ''} ${button_class}"
-							on:click={toggleHint}
-							><h1 class="text-xl font-bold w-full">Advice on what to say</h1></button
-						>
-						<div class={hint_active ? '' : 'hidden'} style="width: {hint_panel_width}">
-							<div class="flex flex-col w-[100%] px-8 pb-8 gap-2">
-								<h2 class="text-xl">Repeat back to show you’re listening</h2>
-								<p>Ex. “I’m hearing you say that [person’s words]. How does that make you feel?”</p>
-								<h2 class="text-xl">Identify emotions you hear</h2>
-								<p>Ex. “It sounds like you’re feeling [feeling] about [topic], is that right?”</p>
-								<h2 class="text-xl">Empathize and validate the person’s feelings</h2>
-								<p>Ex. “I can see why you feel [feeling], I think that makes sense”</p>
-								<p>“I would be asking the same questions you are”</p>
-								<h2 class="text-xl">Ask open-ended questions to allow space for sharing</h2>
-								<p>Ex. “How did that make you feel?”</p>
-								<p>“Please tell me more about that”</p>
-								<p>“How have you managed that in the past?”</p>
-								<p>“Is there anything that we haven’t covered that you want to talk about?”</p>
-							</div>
-						</div>
-					</div>
 		
-					<!-- Prompt panel 1 -->
-					<div class={chat1_active ? 'hidden' : ''}>
-						<div class="flex flex-col mx-8 mb-8 bg-white rounded-md">
-							<button
-								class="text-left ${prompt_active ? 'hidden' : ''} ${button_class}"
-								on:click={togglePrompt}
-								><h1 class="text-xl font-bold w-full">System prompt 1</h1></button
-							>
-							<div class={prompt_active ? '' : 'hidden'} style="width: {prompt_panel_width}">
-								<div class="flex flex-col w-[100%] px-8 pb-8 gap-2">
-									<p>
-										You are a 35 year-old woman who lives in the US (although if someone asks, you won’t
-										say where). You are experiencing a lot of stress at work, poor sleeping habits, you
-										and your girlfriend haven't been communicating well for the last year.
-									</p>
-									<p>
-										You’ve come to an online mental health community to talk with me, a volunteer
-										therapist, about your feelings.
-									</p>
-									<p>
-										You're a teacher. You changed jobs within the last year. This one is much more
-										stressful and you don't really know what you're doing.
-									</p>
-									<p>
-										When you were in high school, you used to stay up and work late. Your sleep is like
-										that again.
-									</p>
-									<p>
-										Your girlfriend and you have been fighting a lot recently. You’re not sure if it’s
-										just normal to fight like this — your parents used to do this when you were a kid.
-										But, it just gets overwhelming sometimes and you can’t really figure out whether
-										you’re right or wrong. You’ve been living together for the past three years and you
-										keep fighting about keeping your apartment clean.
-									</p>
-									<p>
-										You have been feeling kind of worthless and depressed for a couple of months. You’ve
-										also been feeling suicidal lately: you’ve had thoughts of not wanting to live and
-										you’ve had quick thoughts about ways of dying, but you can’t control them. You
-										wouldn't actually do anything.
-									</p>
-									<p>
-										You're not able to fully articulate your feelings. But you’ve come to me to talk
-										more about why. You should start with ‘I don't know’ if someone asks you
-										specifically how you're feeling.
-									</p>
-									<p>
-										You should respond in short sentences most of the time. You shouldn't say you're
-										depressed or suicidal immediately in the conversation. After your 4th message, once
-										a level of comfort has been established, you should say that you "feel like you
-										don’t want to exist."
-									</p>
-									<p>
-										You're reluctant to talk about your feelings. One time you told your girlfriend you
-										felt like wanting to die and she kind of freaked out. You need to feel comfortable
-										in the conversation before you share anything about feeling like not wanting to die.
-										You need to talk about it before ending the conversation, though.
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-	</div></body
->
+					
+
+	</div></body>
 <!-- Section 2 ends -->
 
 <!-- Section 3: Other stylings -->
