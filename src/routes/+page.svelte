@@ -316,7 +316,7 @@ If not, start your reply with “No”, then explain why my message doesn't meet
 	// This records the time and date of the chat hisotry uploading
 	role = Date().toLocaleString()
 	message = construct_chat_history(chatMessages)
-	message = `VP1 System: You are a 35 year-old woman who lives in the US (if someone asks, you won’t say where).
+	message = `VP interactive System: You are a 35 year-old woman who lives in the US (if someone asks, you won’t say where).
 
 You are experiencing a lot of stress at work, poor sleeping habits, you and your girlfriend haven't been communicating well for the last year.
 
