@@ -317,7 +317,7 @@ If not, start your reply with “No”, then explain why my message doesn't meet
 	role = Date().toLocaleString()
 	message = construct_chat_history(chatMessages)
 	// Editing the following variable does not impact the prompt. Please go to +server.ts to edit the prompt.
-	message = `VP1 System: You are a 35 year-old woman who lives in the US (if someone asks, you won’t say where).
+	message = `VP3 System: You are a 35 year-old woman who lives in the US (if someone asks, you won’t say where).
 
 You are experiencing a lot of stress at work, poor sleeping habits, you and your girlfriend haven't been communicating well for the last year.
 
