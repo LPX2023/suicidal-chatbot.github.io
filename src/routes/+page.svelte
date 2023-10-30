@@ -23,7 +23,7 @@
 	// [Edit] Setting up initial messages
 	// System prompt is set up in src/routes/api/chat/+server.ts
 	let chatMessages: ChatCompletionRequestMessage[] = [
-		{ role: 'user', content: 'Hi. What do you want to talk about?' },
+		{ role: 'user', content: 'Hi. Nice to meet you, I’m here to listen. What do you want to talk about?' },
 		{
 			role: 'assistant',
 			content: 'Hi. I’ve had a tough time recently and I wanted to talk to someone about it.'
@@ -297,7 +297,7 @@ If not, start your reply with “No”, then explain why my message doesn't meet
 	function toggleChat1() {
 		chat1_active = !chat1_active
 		chatMessages = [
-			{ role: 'user', content: 'Hi. What do you want to talk about?' },
+			{ role: 'user', content: 'Hi. Nice to meet you, I’m here to listen. What do you want to talk about?' },
 			{
 				role: 'assistant',
 				content: 'Hi. I’ve had a tough time recently and I wanted to talk to someone about it.'
