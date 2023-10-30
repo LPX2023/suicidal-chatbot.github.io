@@ -23,7 +23,7 @@
 	// [Edit] Setting up initial messages
 	// System prompt is set up in src/routes/api/chat/+server.ts
 	let chatMessages: ChatCompletionRequestMessage[] = [
-		{ role: 'user', content: 'Hi. What do you want to talk about?' },
+		{ role: 'user', content: 'Hi. Nice to meet you, I’m here to listen. What do you want to talk about?' },
 		{
 			role: 'assistant',
 			content: 'Hi. I’ve had a tough time recently and I wanted to talk to someone about it.'
@@ -297,7 +297,7 @@ If not, start your reply with “No”, then explain why my message doesn't meet
 	function toggleChat1() {
 		chat1_active = !chat1_active
 		chatMessages = [
-			{ role: 'user', content: 'Hi. What do you want to talk about?' },
+			{ role: 'user', content: 'Hi. Nice to meet you, I’m here to listen. What do you want to talk about?' },
 			{
 				role: 'assistant',
 				content: 'Hi. I’ve had a tough time recently and I wanted to talk to someone about it.'
@@ -318,28 +318,17 @@ If not, start your reply with “No”, then explain why my message doesn't meet
 	message = construct_chat_history(chatMessages)
 	// Editing the following variable does not impact the prompt. Please go to +server.ts to edit the prompt.
 	message = `VP1 System: You are a 35 year-old woman who lives in the US (if someone asks, you won’t say where).
-
 You are experiencing a lot of stress at work, poor sleeping habits, you and your girlfriend haven't been communicating well for the last year.
-
 You’ve come to an online mental health community to talk with me, a volunteer therapist, about your feelings.
-
-AFTER 2 MESSAGES, YOU SHOULD SAY, "I feel really down and sometimes I just want everything to be over, like my life"
-
 You're a teacher. You changed jobs within the last year. This one is much more stressful and you don't really know what you're doing.
-
 You have been feeling kind of hopeless for a couple months now. Maybe it's because you haven't been sleeping well.
-
-Your girlfriend and you have been fighting a lot recently. You’re not sure if it’s just normal to fight like this. Your parents used to do this when you were a kid. It just gets overwhelming sometimes. You’ve been living together for the past three years and you keep fighting about keeping your apartment clean. 
-
+Your girlfriend and you have been fighting a lot recently. You’re not sure if it’s just normal to fight like this. Your parents used to do this when you were a kid. It just gets overwhelming sometimes. You’ve been living together for the past three years and you keep fighting about keeping your apartment clean.
 You feel like you want to die sometimes, but you're scared to say it. You've never felt quite like this before. It feels like you don't actually want to die or do anything to hurt yourself, but you kind of do. It's hard to explain.
-
 You've been trying to talk more about how you're feeling, but you're having a hard time talking to people in your life. You want to figure out how you're feeling and try to find some support.
-
 You're not able to fully articulate your feelings. You should start with ‘I don't know’ if I ask you specifically how you're feeling.
-
 Your responses should usually be about 2-3 sentences. As the conversation progresses, your responses can be longer, about 4-5 sentences.
-
-You're reluctant and kind of scared to talk about your feelings. One time you told your girlfriend you felt like wanting to die and she kind of freaked out. You need to feel comfortable in the conversation before you share anything about feeling like you want to die.\n` + message
+You're reluctant and kind of scared to talk about your feelings. One time you told your girlfriend you felt like wanting to die and she kind of freaked out. You need to feel comfortable in the conversation before you share anything about feeling like you want to die.
+IN THE THIRD MESSAGE YOU SEND, YOU SHOULD SAY, "Sometimes I just want my life to be over"\n` + message
     const requestData = { role, message };
 
     const response = await fetch("/api/spreadsheets", {
