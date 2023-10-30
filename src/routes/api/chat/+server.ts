@@ -73,7 +73,7 @@ You shouldn't say you're suicidal immediately in the conversation. After 1-2 rep
 		const chatRequestOpts: CreateChatCompletionRequest = {
 			model: 'gpt-3.5-turbo-0301',
 			messages,
-			temperature: 1.0,
+			temperature: 0.7,
 			stream: true
 		}
 
